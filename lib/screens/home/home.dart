@@ -1,46 +1,32 @@
-import 'package:firebase/services/auth.dart';
 import 'package:firebase/shared/navbar.dart';
+import 'package:firebase/shared/profileView.dart';
 import 'package:firebase/shared/room_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  AuthService _auth = AuthService();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: Colors.white,
       drawer: NavBar(),
       appBar: AppBar(
-        actions:  [
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: GestureDetector(
-              onTap: _auth.SignOut,
-              child: Icon(Icons.person)),
-          )
-        ],
+        toolbarHeight: 80,
         elevation: 0.0,
-        title: const Text('HomePage'),
-        backgroundColor: Colors.transparent,
+        title: Center(
+            child: Text(
+          'HomePage',
+          style: GoogleFonts.italianno(fontSize: 40),
+        )),
+        backgroundColor: Colors.blue[700],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "",
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ""),
-        ],
-      ),
+     
       body: Column(
         children: <Widget>[
           Padding(
@@ -54,18 +40,19 @@ class _HomeState extends State<Home> {
           ),
           const SizedBox(height: 20),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(
-                decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.search),
-              hintText: "Find you'r office...",
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade600),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(20),
               ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade600),
-              ),
-            )),
+              child: TextField(
+                  decoration: InputDecoration(
+                border: InputBorder.none,
+                prefixIcon: const Icon(Icons.search),
+                hintText: "Find you'r office...",
+              )),
+            ),
           ),
           SizedBox(height: 25),
           Expanded(
@@ -76,19 +63,19 @@ class _HomeState extends State<Home> {
                 roomImagePath: 'assets/room.jpg',
                 roomName: 'Room1',
               ),
-               RommTile(
+              RommTile(
                 roomImagePath: 'assets/room2.jpg',
                 roomName: 'Room2',
               ),
-               RommTile(
+              RommTile(
                 roomImagePath: 'assets/room3.jpg',
                 roomName: 'Room3',
               ),
-               RommTile(
+              RommTile(
                 roomImagePath: 'assets/room4.jpg',
                 roomName: 'Room4',
               ),
-               RommTile(
+              RommTile(
                 roomImagePath: 'assets/room5.jpg',
                 roomName: 'Room5',
               ),
