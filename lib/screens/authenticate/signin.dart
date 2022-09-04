@@ -122,14 +122,13 @@ class _SignInState extends State<SignIn> {
                                   ),
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      dynamic result = await _auth
-                                          .SigninWithEmailAndPassword(
-                                              email, password);
-                                      if (result == null) {
-                                        setState(() {
-                                          error = "Enter valid information";
-                                        });
-                                      }
+                                      await _auth.SigninWithEmailAndPassword(
+                                          email, password);
+                                    } else {
+                                      setState(() {
+                                        error =
+                                            "Enter Valid information or check you'r connection ";
+                                      });
                                     }
                                   },
                                   color: Colors.blue[700],
@@ -163,6 +162,13 @@ class _SignInState extends State<SignIn> {
                                   )
                                 ],
                               ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              error,
+                              style: TextStyle(color: Colors.red),
                             ),
                             SizedBox(
                               height: 20,

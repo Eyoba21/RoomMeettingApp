@@ -3,82 +3,114 @@
 import 'package:firebase/screens/book.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class RommTile extends StatelessWidget {
+// ignore: must_be_immutable
+class RommTile extends StatefulWidget {
   final String roomImagePath;
   final String roomName;
-  RommTile({required this.roomImagePath, required this.roomName});
+  final String address;
+  String avaliablity;
+
+  RommTile(
+      {required this.roomImagePath,
+      required this.roomName,
+      required this.address,
+      required this.avaliablity});
+
+  @override
+  State<RommTile> createState() => _RommTileState();
+}
+
+class _RommTileState extends State<RommTile> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 25),
-      child: Container(
-        width: 200,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.grey[300],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(roomImagePath)),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Column(
-                    children: [
-                      Text(
-                        roomName,
-                        style: GoogleFonts.bebasNeue(fontSize: 20),
+    Size screenSize = MediaQuery.of(context).size;
+    return Stack(children: [
+      Padding(
+        padding: const EdgeInsets.only(left: 15, right: 15),
+        child: Container(
+          height: screenSize.height * 0.35,
+          width: screenSize.width,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: screenSize.height * 0.22,
+                width: screenSize.width,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: CachedNetworkImageProvider(widget.roomImagePath), fit: BoxFit.cover),
+                ),
+              ),
+              SizedBox(height: 6),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  widget.roomName,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(height: 4),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 22),
+                child: Text(
+                  widget.address,
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Center(
+                  child: Container(
+                    height: 42,
+                    width: screenSize.width * 0.4,
+                    child: RaisedButton(
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => BookNow())),
+                      color: Colors.blue[700],
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Text(
+                        'Book Now',
+                        style: GoogleFonts.bebasNeue(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                            color: Colors.white),
                       ),
-                    ],
+                    ),
                   ),
                 ),
-                Icon(Icons.room),
-                Text(
-                  'Bole Atlas',
-                  style: GoogleFonts.bebasNeue(fontSize: 20),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Available',
-                          style: GoogleFonts.bebasNeue(
-                            fontSize: 20,
-                          )),
-                      RaisedButton(
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => BookNow())),
-                        color: Colors.blue[700],
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Text(
-                          'Book Now',
-                          style: GoogleFonts.bebasNeue(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),
-    );
+      Positioned(
+        right: 15,
+        child: Container(
+          height: 20,
+          width: 100,
+          decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(4)),
+          child: Text(
+            widget.avaliablity,
+            style: TextStyle(fontSize: 16, color: Colors.black),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    ]);
   }
 }

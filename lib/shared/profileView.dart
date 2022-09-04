@@ -52,21 +52,37 @@ class _ProfileVeiwState extends State<ProfileVeiw> {
                       child: CircleAvatar(
                         backgroundColor: Colors.deepPurple,
                         maxRadius: 50,
-                        backgroundImage: NetworkImage(user.photoURL!),
+                        backgroundImage:
+                            NetworkImage(user.photoURL ?? 'NoPhoto'),
                       ),
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      "Name:\t\t" + user.displayName!,
-                      style: GoogleFonts.italianno(
-                          fontSize: 40, fontWeight: FontWeight.bold),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "Name: ",
+                          style: GoogleFonts.italianno(
+                              fontSize: 40, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          user.displayName ?? 'NoName',
+                          style: GoogleFonts.italianno(
+                              fontSize: 40, fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
-                    Text(
-                      "Email:" + user.email!,
-                      style: GoogleFonts.italianno(
-                          fontSize: 40, fontWeight: FontWeight.bold),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "Email:" + user.email!,
+                          style: GoogleFonts.italianno(
+                              fontSize: 40, fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 70,

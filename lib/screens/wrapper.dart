@@ -1,7 +1,5 @@
 import 'package:firebase/models/user.dart';
 import 'package:firebase/screens/authenticate/authenticate.dart';
-import 'package:firebase/screens/home/home.dart';
-import 'package:firebase/shared/profileView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase/shared/bottom.dart';

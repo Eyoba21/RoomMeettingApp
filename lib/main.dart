@@ -16,12 +16,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) => MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (context) => GoogleSigInProvider(),),
-            StreamProvider<Users?>.value(
-          value: AuthService().user,
-           initialData: null,)
-          ],
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => GoogleSigInProvider(),
+          ),
+          StreamProvider<Users?>.value(
+            value: AuthService().user,
+            initialData: null,
+          )
+        ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(primarySwatch: Colors.blue),
